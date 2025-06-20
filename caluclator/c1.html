@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .calculator {
+            background: #222;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            width: 320px;
+        }
+        .display {
+            background: #111;
+            color: #fff;
+            font-size: 2rem;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-align: right;
+            min-height: 48px;
+            overflow-x: auto;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+        button {
+            padding: 1rem;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 8px;
+            background: #333;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button.operator {
+            background: #ff9500;
+            color: #fff;
+        }
+        button.equal {
+            background: #34c759;
+            color: #fff;
+            grid-column: span 2;
+        }
+        button.clear {
+            background: #ff3b30;
+            color: #fff;
+        }
+        button:active {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+            <button class="clear" id="clear">C</button>
+            <button class="operator" data-value="/">÷</button>
+            <button class="operator" data-value="*">×</button>
+            <button class="operator" data-value="-">−</button>
+            <button data-value="7">7</button>
+            <button data-value="8">8</button>
+            <button data-value="9">9</button>
+            <button class="operator" data-value="+">+</button>
+            <button data-value="4">4</button>
+            <button data-value="5">5</button>
+            <button data-value="6">6</button>
+            <button data-value=".">.</button>
+            <button data-value="1">1</button>
+            <button data-value="2">2</button>
+            <button data-value="3">3</button>
+            <button class="equal" id="equals">=</button>
+            <button data-value="0" style="grid-column: span 2;">0</button>
+        </div>
+    </div>
+    <script>
+        const display = document.getElementById('display');
+        let current = '';
+        let resultShown = false;
+
+        function updateDisplay(value) {
+            display.textContent = value || '0';
+        }
+
+        function calculate() {
+            try {
+                // Evaluate only if the last character is a number or dot
+                if (/[0-9.]$/.test(current)) {
+                    const res = eval(current);
+                    updateDisplay(res);
+                    current = res.toString();
+                    resultShown = true;
+                }
+            } catch {
+                updateDisplay('Error');
+                current = '';
+                resultShown = true;
+            }
+        }
+
+        document.querySelectorAll('.buttons button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const val = btn.getAttribute('data-value');
+                if (btn.id === 'clear') {
+                    current = '';
+                    updateDisplay(current);
+                } else if (btn.id === 'equals') {
+                    calculate();
+                } else if (val) {
+                    if (resultShown && /[0-9.]/.test(val)) {
+                        current = '';
+                        resultShown = false;
+                    }
+                    // Prevent multiple operators in a row
+                    if (/[+\-*/.]$/.test(current) && /[+\-*/.]/.test(val)) return;
+                    current += val;
+                    updateDisplay(current);
+                }
+            });
+        });
+
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if ((e.key >= '0' && e.key <= '9') || ['+', '-', '*', '/', '.'].includes(e.key)) {
+                if (resultShown && /[0-9.]/.test(e.key)) {
+                    current = '';
+                    resultShown = false;
+                }
+                if (/[+\-*/.]$/.test(current) && /[+\-*/.]/.test(e.key)) return;
+                current += e.key;
+                updateDisplay(current);
+            } else if (e.key === 'Enter' || e.key === '=') {
+                calculate();
+            } else if (e.key === 'Backspace') {
+                current = current.slice(0, -1);
+                updateDisplay(current);
+            } else if (e.key.toLowerCase() === 'c') {
+                current = '';
+                updateDisplay(current);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMAGE GALLERY</title>
+    <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Image Gallery</h1>
+        <div id="filters" style="margin-bottom: 1.5em;">
+            <button class="filter-btn" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="food">Food</button>
+            <button class="filter-btn" data-filter="aesthetic">Aesthetic</button>
+            <button class="filter-btn" data-filter="travel">Travel</button>
+            <button class="filter-btn" data-filter="space">Space</button>
+            <button class="filter-btn" data-filter="animal">Animals</button>
+            
+        </div>
+        <div class="gallery-wrapper">
+            <div class="fullImageBox" id="full-ImageBox">
+                <button class="nav-btn" id="prevBtn">&#8592;</button>
+                <img src="1.jpg" id="complete-Img" alt="">
+                <span onclick="closeImg()">X</span>
+                <button class="nav-btn" id="nextBtn">&#8594;</button>
+            </div>
+            
+            <div class="gallery" id="gallery">
+                <img src="1.jpg" alt="" data-category="aesthetic" onclick="openImg(this.src)">
+                <img src="2.jpg" alt="" data-category="food" onclick="openImg(this.src)">
+                <img src="3.jpg" alt="" data-category="aesthetic" onclick="openImg(this.src)">
+                <img src="4.jpg" alt="" data-category="aesthetic" onclick="openImg(this.src)">
+                <img src="5.jpg" alt="" data-category="food" onclick="openImg(this.src)">
+                <img src="6.jpg" alt="" data-category="food" onclick="openImg(this.src)">
+                <img src="7.jpg" alt="" data-category="space" onclick="openImg(this.src)">
+                <img src="8.jpg" alt="" data-category="food" onclick="openImg(this.src)">
+                <img src="9.jpg" alt="" data-category="travel" onclick="openImg(this.src)">
+                <img src="10.jpg" alt=""data-category="space" onclick="openImg(this.src)">
+                <img src="11.jpg" alt="" data-category="travel" onclick="openImg(this.src)">
+                <img src="12.jpg" alt="" data-category="space" onclick="openImg(this.src)">
+                <img src="13.jpg" alt="" data-category="travel" onclick="openImg(this.src)">
+                <img src="14.jpg" alt="" data-category="food" onclick="openImg(this.src)">
+                <img src="15.jpg" alt="" data-category="food" onclick="openImg(this.src)">
+                <img src="17.jpg" alt="" data-category="aesthetic" onclick="openImg(this.src)">
+                <img src="16.jpg" alt="" data-category="food" onclick="openImg(this.src)">
+                <img src="18.jpg" alt="" data-category="aesthetic" onclick="openImg(this.src)">
+                <img src="19.jpg" alt="" data-category="travel" onclick="openImg(this.src)">
+                
+
+            </div>
+            
+        </div>
+    </div>
+    <script src="gallery(1).js"></script>
+</body>
+</html>
